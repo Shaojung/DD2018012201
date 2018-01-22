@@ -1,5 +1,6 @@
 package tw.com.pcschool.dd2018012201;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -47,8 +48,11 @@ public class MainActivity extends AppCompatActivity {
         Cursor c = db.rawQuery("Select * from students", null);
         c.moveToFirst();
         Log.d("DB", c.getString(1) + "," + c.getInt(2));
-        c.moveToNext();
-        Log.d("DB", c.getString(1) + "," + c.getInt(2));
+        while (c.moveToNext())
+        {
+            Log.d("DB", c.getString(1) + "," + c.getInt(2));
+        }
+
     }
     public void click3(View v)
     {
@@ -74,5 +78,17 @@ public class MainActivity extends AppCompatActivity {
         Cursor c = db.query("students", new String[] {"_id", "name", "score"}, "_id=?", new String[] {"2"}, null, null, null);
         c.moveToFirst();
         Log.d("DB", c.getString(1) + "," + c.getInt(2));
+    }
+
+    public void click7(View v)
+    {
+        File dbFile = new File(getFilesDir(), "student.db");
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(dbFile.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
+        ContentValues cv = new ContentValues();
+        cv.put("_id", 4);
+        cv.put("name", "Mary");
+        cv.put("score", 92);
+        db.insert("students", null, cv);
+        db.close();
     }
 }

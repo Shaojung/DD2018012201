@@ -79,7 +79,13 @@ public class MainActivity extends AppCompatActivity {
         c.moveToFirst();
         Log.d("DB", c.getString(1) + "," + c.getInt(2));
     }
-
+    public void click6(View v)
+    {
+        File dbFile = new File(getFilesDir(), "student.db");
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(dbFile.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
+        db.execSQL("Insert into students (_id, name, score) values (3, 'Bob', 95)");
+        db.close();
+    }
     public void click7(View v)
     {
         File dbFile = new File(getFilesDir(), "student.db");

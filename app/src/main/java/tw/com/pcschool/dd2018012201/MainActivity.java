@@ -1,7 +1,10 @@
 package tw.com.pcschool.dd2018012201;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import java.io.File;
@@ -36,5 +39,15 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void click2(View v)
+    {
+        File dbFile = new File(getFilesDir(), "student.db");
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(dbFile.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
+        Cursor c = db.rawQuery("Select * from students", null);
+        c.moveToFirst();
+        Log.d("DB", c.getString(1) + "," + c.getInt(2));
+        c.moveToNext();
+        Log.d("DB", c.getString(1) + "," + c.getInt(2));
     }
 }

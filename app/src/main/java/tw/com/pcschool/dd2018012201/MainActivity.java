@@ -50,4 +50,29 @@ public class MainActivity extends AppCompatActivity {
         c.moveToNext();
         Log.d("DB", c.getString(1) + "," + c.getInt(2));
     }
+    public void click3(View v)
+    {
+        File dbFile = new File(getFilesDir(), "student.db");
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(dbFile.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
+        String strSql = "Select * from students where _id=?";
+        Cursor c = db.rawQuery(strSql, new String[] {"2"});
+        c.moveToFirst();
+        Log.d("DB", c.getString(1) + "," + c.getInt(2));
+    }
+    public void click4(View v)
+    {
+        File dbFile = new File(getFilesDir(), "student.db");
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(dbFile.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
+        Cursor c = db.query("students", new String[] {"_id", "name", "score"}, null, null, null, null, null);
+        c.moveToFirst();
+        Log.d("DB", c.getString(1) + "," + c.getInt(2));
+    }
+    public void click5(View v)
+    {
+        File dbFile = new File(getFilesDir(), "student.db");
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(dbFile.getAbsolutePath(), null, SQLiteDatabase.OPEN_READWRITE);
+        Cursor c = db.query("students", new String[] {"_id", "name", "score"}, "_id=?", new String[] {"2"}, null, null, null);
+        c.moveToFirst();
+        Log.d("DB", c.getString(1) + "," + c.getInt(2));
+    }
 }
